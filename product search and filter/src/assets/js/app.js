@@ -1,4 +1,5 @@
 const $ = document;
+const IMG_ADDRESS = 'assets/img/';
 let products = [
   {
     id: 1,
@@ -71,3 +72,30 @@ let products = [
     img: 'xboxs.jpg',
   },
 ];
+
+// show all the products when the page loaded
+window.addEventListener('load', function () {
+  fetchProducts(products);
+});
+
+function fetchProducts(productList) {
+  const list = $.querySelector('#list');
+  let productsFragment = $.createDocumentFragment();
+  productList.forEach((product) => {
+    productsFragment.appendChild(createProductElement(product));
+  });
+  list.append(productsFragment);
+}
+
+function createProductElement(product) {
+  let productElement = $.createElement('section');
+  productElement.classList.add('product','pt-5');
+  let productTemplate = `
+  <figure class="product__img w-75 m-auto mb-2">
+    <img class="img-fluid" src="${IMG_ADDRESS}${product.img}" alt="">
+  </figure>
+  <p class="product__name text-center mb-1">${product.name}</p>
+  <span class="product__price text-center d-block">${product.price}$</span>`;
+  productElement.insertAdjacentHTML('beforeend', productTemplate);
+  return productElement;
+}
