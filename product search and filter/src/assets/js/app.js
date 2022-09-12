@@ -1,0 +1,73 @@
+const $ = document;
+let products = [
+  {
+    id: 1,
+    name: 'iphone 12',
+    price: 1_200,
+    category: 'phone',
+    img: 'iphone12.jpg',
+  },
+  {
+    id: 2,
+    name: 'iphone 14 pro max',
+    price: 1_000,
+    category: 'phone',
+    img: 'iphone14.jpg',
+  },
+  {
+    id: 3,
+    name: 'iphone 14 pro max',
+    price: 1_000,
+    category: 'phone',
+    img: 'iphone14.jpg',
+  },
+  {
+    id: 4,
+    name: 'iphone 14 pro max',
+    price: 1_000,
+    category: 'phone',
+    img: 'iphone14.jpg',
+  },
+  {
+    id: 5,
+    name: 'iphone 14 pro max',
+    price: 1_000,
+    category: 'phone',
+    img: 'iphone14.jpg',
+  },
+  {
+    id: 6,
+    name: 'iphone 14 pro max',
+    price: 1_000,
+    category: 'phone',
+    img: 'iphone14.jpg',
+  },
+  {
+    id: 7,
+    name: 'iphone 14 pro max',
+    price: 1_000,
+    category: 'phone',
+    img: 'iphone14.jpg',
+  },
+  {
+    id: 8,
+    name: 'iphone 14 pro max',
+    price: 1_000,
+    category: 'phone',
+    img: 'iphone14.jpg',
+  },
+  {
+    id: 9,
+    name: 'iphone 14 pro max',
+    price: 1_000,
+    category: 'phone',
+    img: 'iphone14.jpg',
+  },
+  {
+    id: 10,
+    name: 'iphone 14 pro max',
+    price: 1_000,
+    category: 'phone',
+    img: 'iphone14.jpg',
+  },
+];
