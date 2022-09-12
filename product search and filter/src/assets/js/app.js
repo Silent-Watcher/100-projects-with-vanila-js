@@ -77,14 +77,12 @@ const $ = document,
 let currentActiveCategory = 'All';
 
 function fetchProducts(productList, category = null , includes = '') {
-  console.log(includes);
   const list = $.querySelector('#list');
   list.innerHTML = null;
   let productsFragment = $.createDocumentFragment();
   let resultProducts = productList.filter((product) => {
     return (category === 'All' ? true : product.category === category ) && product.name.includes(includes);
   });
-  console.log(resultProducts);
   resultProducts.forEach((product) => {
     productsFragment.appendChild(createProductElement(product));
   });
