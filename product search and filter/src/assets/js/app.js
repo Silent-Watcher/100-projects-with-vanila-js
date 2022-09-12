@@ -1,5 +1,3 @@
-const $ = document;
-const IMG_ADDRESS = 'assets/img/';
 let products = [
   {
     id: 1,
@@ -68,28 +66,34 @@ let products = [
     id: 10,
     name: 'xboxs',
     price: 3_430,
-    category: 'phone',
+    category: 'gaming',
     img: 'xboxs.jpg',
   },
 ];
+const $ = document,
+  categoryWrapper = $.querySelector('#category_wrapper'),
+  IMG_ADDRESS = 'assets/img/';
+//
+let currentActiveCategory = 'All';
 
-// show all the products when the page loaded
-window.addEventListener('load', function () {
-  fetchProducts(products);
-});
-
-function fetchProducts(productList) {
+function fetchProducts(productList, category = null , includes = '') {
+  console.log(includes);
   const list = $.querySelector('#list');
+  list.innerHTML = null;
   let productsFragment = $.createDocumentFragment();
-  productList.forEach((product) => {
+  let resultProducts = productList.filter((product) => {
+    return (category === 'All' ? true : product.category === category ) && product.name.includes(includes);
+  });
+  console.log(resultProducts);
+  resultProducts.forEach((product) => {
     productsFragment.appendChild(createProductElement(product));
   });
   list.append(productsFragment);
 }
-
+//
 function createProductElement(product) {
   let productElement = $.createElement('section');
-  productElement.classList.add('product','pt-5');
+  productElement.classList.add('product', 'pt-5');
   let productTemplate = `
   <figure class="product__img w-75 m-auto mb-2">
     <img class="img-fluid" src="${IMG_ADDRESS}${product.img}" alt="">
@@ -99,3 +103,59 @@ function createProductElement(product) {
   productElement.insertAdjacentHTML('beforeend', productTemplate);
   return productElement;
 }
+//
+function fetchCategoryButtons(products) {
+  let categories = getCategories(products);
+  let categoriesFragment = $.createDocumentFragment();
+  categories.forEach((category) => {
+    categoriesFragment.appendChild(createCategoryButton(category));
+  });
+  $.querySelector('#category_wrapper').append(categoriesFragment);
+}
+//
+function getCategories(products) {
+  let categories = [];
+  for (const { category } of products) categories.push(category);
+  categories = _.uniq(categories);
+  return categories;
+}
+//
+function createCategoryButton(category) {
+  let categoryButton = $.createElement('button');
+  categoryButton.type = 'button';
+  categoryButton.className = 'btn btn-outline-primary ms-2';
+  categoryButton.innerHTML = category;
+  return categoryButton;
+}
+// show all the products and category buttons when the page loaded
+window.addEventListener('load', () => {
+  fetchProducts(products , currentActiveCategory);
+  fetchCategoryButtons(products);
+});
+//
+categoryWrapper.addEventListener('click', activeTargetButton);
+categoryWrapper.addEventListener('click', () => {
+  currentActiveCategory = event.target.innerHTML;
+  fetchProducts(products, currentActiveCategory);
+});
+
+function _siblings(element) {
+  let siblings = [];
+  [...element.parentElement.children].forEach((sibling) => {
+    sibling !== element && siblings.push(sibling);
+  });
+  return siblings;
+}
+
+function activeTargetButton(event) {
+  if (event.target.tagName === 'BUTTON') {
+    event.target.classList.add('active');
+    _siblings(event.target).forEach((sibling) => {
+      sibling.classList.remove('active');
+    });
+  }
+}
+
+$.querySelector('#search__input').addEventListener('keyup', function () {
+  fetchProducts(products, currentActiveCategory, this.value);
+});
