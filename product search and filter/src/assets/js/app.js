@@ -75,13 +75,16 @@ const $ = document,
   IMG_ADDRESS = 'assets/img/';
 //
 let currentActiveCategory = 'All';
-
-function fetchProducts(productList, category = null , includes = '') {
+//
+function fetchProducts(productList, category = null, includes = '') {
   const list = $.querySelector('#list');
   list.innerHTML = null;
   let productsFragment = $.createDocumentFragment();
   let resultProducts = productList.filter((product) => {
-    return (category === 'All' ? true : product.category === category ) && product.name.includes(includes);
+    return (
+      (category === 'All' ? true : product.category === category) &&
+      product.name.includes(includes)
+    );
   });
   resultProducts.forEach((product) => {
     productsFragment.appendChild(createProductElement(product));
@@ -105,7 +108,7 @@ function createProductElement(product) {
 function fetchCategoryButtons(products) {
   let categories = getCategories(products);
   let categoriesFragment = $.createDocumentFragment();
-  for (const category of categories) 
+  for (const category of categories)
     categoriesFragment.appendChild(createCategoryButton(category));
   $.querySelector('#category_wrapper').append(categoriesFragment);
 }
@@ -123,18 +126,7 @@ function createCategoryButton(category) {
   categoryButton.innerHTML = category;
   return categoryButton;
 }
-// show all the products and category buttons when the page loaded
-window.addEventListener('load', () => {
-  fetchProducts(products , currentActiveCategory);
-  fetchCategoryButtons(products);
-});
 //
-categoryWrapper.addEventListener('click', activeTargetButton);
-categoryWrapper.addEventListener('click', () => {
-  currentActiveCategory = event.target.innerHTML;
-  fetchProducts(products, currentActiveCategory);
-});
-
 function _siblings(element) {
   let siblings = [];
   [...element.parentElement.children].forEach((sibling) => {
@@ -142,7 +134,7 @@ function _siblings(element) {
   });
   return siblings;
 }
-
+//
 function activeTargetButton(event) {
   if (event.target.tagName === 'BUTTON') {
     event.target.classList.add('active');
@@ -151,7 +143,18 @@ function activeTargetButton(event) {
     });
   }
 }
-
+// show all the products and category buttons when the page loaded
+window.addEventListener('load', () => {
+  fetchProducts(products, currentActiveCategory);
+  fetchCategoryButtons(products);
+});
+// category buttons
+categoryWrapper.addEventListener('click', activeTargetButton);
+categoryWrapper.addEventListener('click', () => {
+  currentActiveCategory = event.target.innerHTML;
+  fetchProducts(products, currentActiveCategory);
+});
+// live search
 $.querySelector('#search__input').addEventListener('keyup', function () {
   fetchProducts(products, currentActiveCategory, this.value);
 });
