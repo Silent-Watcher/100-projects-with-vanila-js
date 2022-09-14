@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.css" />
     <!-- <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -14,7 +14,30 @@
     /> -->
   </head>
   <body>
-    
+    <div class="wrapper">
+      <header>
+        <h2>price range</h2>
+        <p>user slider or enter the numbers by yourself</p>
+      </header>
+      <div class="price-input">
+        <div class="field">
+          <span>min</span>
+          <input type="number" class="input-min" value="2500" />
+        </div>
+        <div class="seperator">-</div>
+        <div class="field">
+          <span>max</span>
+          <input type="number" class="input-max" value="7500" />
+        </div>
+      </div>
+      <div class="slider">
+        <div class="progress"></div>
+      </div>
+      <div class="range-input">
+        <input type="range" name="" id="" class="range-min" min="0" max="10000" value="2500" />
+        <input type="range" name="" id="" class="range-max" min="0" max="10000" value="7500" />
+      </div>
+    </div>
   </body>
   <script src="./app.js"></script>
 </html>

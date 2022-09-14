@@ -119,7 +119,7 @@ function getCategories(products) {
 function createCategoryButton(category) {
   let categoryButton = $.createElement('button');
   categoryButton.type = 'button';
-  categoryButton.className = 'btn btn-outline-primary ms-2';
+  categoryButton.className = 'btn btn-outline-primary ms-2 pe-auto';
   categoryButton.innerHTML = category;
   return categoryButton;
 }
