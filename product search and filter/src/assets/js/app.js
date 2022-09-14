@@ -105,17 +105,15 @@ function createProductElement(product) {
 function fetchCategoryButtons(products) {
   let categories = getCategories(products);
   let categoriesFragment = $.createDocumentFragment();
-  categories.forEach((category) => {
+  for (const category of categories) 
     categoriesFragment.appendChild(createCategoryButton(category));
-  });
   $.querySelector('#category_wrapper').append(categoriesFragment);
 }
 //
 function getCategories(products) {
   let categories = [];
   for (const { category } of products) categories.push(category);
-  categories = _.uniq(categories);
-  return categories;
+  return new Set(categories);
 }
 //
 function createCategoryButton(category) {
